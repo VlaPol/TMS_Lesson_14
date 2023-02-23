@@ -7,26 +7,22 @@ public class ExchangeService {
 
     public static ExchangeRate[] getTodayRates() {
 
-        ExchangeRate[] exchangeRates = new ExchangeRate[6];
-        Currency[] currencyArray = Currency.values();
+        return new ExchangeRate[]{
+                new ExchangeRate(Currency.BYN, BigDecimal.ONE),
+                new ExchangeRate(Currency.USD, new BigDecimal("2.7982")),
+                new ExchangeRate(Currency.EUR, new BigDecimal("2.9944")),
+                new ExchangeRate(Currency.GBP, new BigDecimal("3.3742")),
+                new ExchangeRate(Currency.RUB, new BigDecimal("0.037649")),
+                new ExchangeRate(Currency.CNY, new BigDecimal("0.40982"))
+        };
 
-        int i = 0;
-        for (Currency itm : currencyArray) {
-            exchangeRates[i] = new ExchangeRate().getExchangeRate(itm);
-            i++;
-        }
-
-        return exchangeRates;
     }
 
     public static BigDecimal exchange(Currency inputCurrency, BigDecimal exchangeMoney, Currency exchangeCurrency) {
 
-        BigDecimal inputCurRate = new BigDecimal(0);
-        BigDecimal outputCurRate = new BigDecimal(0);
+        BigDecimal inputCurRate = BigDecimal.ZERO;
+        BigDecimal outputCurRate = BigDecimal.ZERO;
 
-        if (exchangeMoney.compareTo(BigDecimal.ZERO) == 0) {
-            return BigDecimal.valueOf(0);
-        }
         ExchangeRate[] currentRate = getTodayRates();
 
         for (ExchangeRate itm : currentRate) {
@@ -38,12 +34,6 @@ public class ExchangeService {
             }
         }
 
-        if (exchangeCurrency != Currency.BYN) {
-            return outputCurRate.compareTo(BigDecimal.ZERO) == 0
-                    ? BigDecimal.valueOf(0)
-                    : (inputCurRate.multiply(exchangeMoney).divide(outputCurRate,2, RoundingMode.HALF_UP));
-        } else {
-            return inputCurRate.multiply(exchangeMoney);
-        }
+        return inputCurRate.multiply(exchangeMoney).divide(outputCurRate, 2, RoundingMode.HALF_UP);
     }
 }

@@ -37,10 +37,10 @@ public class Homework14Test {
                     System.out.print("Input your currency code: ");
                     Currency inputCurrencyCode = Currency.valueOf(scanner.nextLine());
                     System.out.print("Input currency code you want to receive: ");
-                    Currency outputCurrency = Currency.valueOf(scanner.nextLine());
+                    Currency outputCurrencyCode = Currency.valueOf(scanner.nextLine());
                     System.out.print("Input amount: ");
                     BigDecimal inputCurrency = BigDecimal.valueOf(Integer.parseInt(scanner.nextLine()));
-                    System.out.println(ExchangeService.exchange(inputCurrencyCode, inputCurrency, outputCurrency));
+                    System.out.println(ExchangeService.exchange(inputCurrencyCode, inputCurrency, outputCurrencyCode));
                 }
                 case 0 -> {
                     return;
