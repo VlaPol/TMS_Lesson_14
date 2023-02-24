@@ -10,7 +10,7 @@ public class ExchangeRate {
 
 
     public ExchangeRate(Currency currency, BigDecimal rate) {
-        if(rate.compareTo(BigDecimal.ZERO) == 0){
+        if (rate.compareTo(BigDecimal.ZERO) <= 0) {
             throw new IllegalArgumentException("Invalid rate");
         }
         this.currency = currency;
@@ -22,7 +22,7 @@ public class ExchangeRate {
     }
 
     public BigDecimal getRate() {
-        return rate.round(new MathContext(5));
+        return rate;
     }
 
     @Override
